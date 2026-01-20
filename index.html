@@ -10,16 +10,21 @@
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;600;800&family=Noto+Serif+JP:wght@300;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+    <meta property="og:title" content="SK0528JP | 瑞典 飛燕 - Digital Business Card">
+    <meta property="og:description" content="デジタルデベロッパー SK0528JP (瑞典 飛燕) のデジタル名刺です。ポートフォリオ、連絡先、SNS情報をご確認いただけます。">
+    <meta property="og:type" content="profile">
+    <meta property="og:url" content="https://sk0528jp.github.io/card/"> <meta property="og:image" content="https://sk0528jp.github.io/images/logo.png"> <meta property="og:site_name" content="SK0528JP's Portfolio">
+    <meta property="og:locale" content="ja_JP">
+
     <style>
         :root {
             --glass-bg: rgba(255, 255, 255, 0.1);
             --glass-border: rgba(255, 255, 255, 0.2);
             --text-primary: #ffffff;
             --text-secondary: rgba(255, 255, 255, 0.7);
-            --accent: #a3c1ad; 
+            --accent: #a3c1ad; /* 北欧のハーブをイメージしたセージグリーン */
             --font-main: 'Manrope', sans-serif;
             --font-sub: 'Noto Serif JP', serif;
-            --transition-smooth: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
         }
 
         @media (prefers-color-scheme: light) {
@@ -32,22 +37,21 @@
             }
         }
 
-        * { box-sizing: border-box; -webkit-font-smoothing: antialiased; touch-action: manipulation; }
+        * { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
 
         body {
             margin: 0;
             height: 100vh;
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
-            background: #0f172a;
+            background: #0f172a; /* 背景は深く落ち着いた色 */
             font-family: var(--font-main);
             overflow: hidden;
             position: relative;
         }
 
-        /* 背景のアニメーション */
+        /* 背景のアニメーション効果（北欧の夜空・オーロラをイメージ） */
         .bg-glow {
             position: absolute;
             width: 150%;
@@ -66,25 +70,15 @@
 
         /* 3D Tilt Wrapper */
         .tilt-container {
-            perspective: 1200px;
+            perspective: 1000px;
             width: 100%;
             max-width: 380px;
             padding: 20px;
-            cursor: pointer;
         }
 
-        /* カードの表裏回転を制御するラッパー */
-        .card-inner {
+        /* すりガラスカード本体 */
+        .card {
             position: relative;
-            width: 100%;
-            transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
-            transform-style: preserve-3d;
-            will-change: transform;
-        }
-
-        /* 表面と裏面の共通設定 */
-        .card-front, .card-back {
-            width: 100%;
             background: var(--glass-bg);
             backdrop-filter: blur(25px) saturate(180%);
             -webkit-backdrop-filter: blur(25px) saturate(180%);
@@ -93,94 +87,119 @@
             padding: 40px 30px;
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
             color: var(--text-primary);
-            backface-visibility: hidden;
-            -webkit-backface-visibility: hidden;
-        }
-
-        .card-back {
-            position: absolute;
-            top: 0;
-            left: 0;
-            height: 100%;
-            transform: rotateY(180deg);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
             text-align: center;
+            transform-style: preserve-3d;
+            transition: transform 0.1s ease-out;
         }
 
-        /* 表面のデザイン維持 */
-        .logo-wrap { margin-bottom: 25px; display: inline-block; }
+        /* ロゴ部分 */
+        .logo-wrap {
+            position: relative;
+            margin-bottom: 25px;
+            display: inline-block;
+        }
         .logo {
-            width: 90px; height: 90px; border-radius: 50%;
-            object-fit: contain; background: rgba(255, 255, 255, 0.8);
-            padding: 5px; border: 1px solid var(--glass-border);
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            object-fit: contain;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 5px;
+            border: 1px solid var(--glass-border);
         }
 
-        .name-container { margin-bottom: 35px; text-align: center; }
-        .main-name { font-size: 2rem; font-weight: 800; letter-spacing: 0.1em; display: block; }
+        /* 姓名エリア */
+        .name-container {
+            margin-bottom: 35px;
+        }
+        .main-name {
+            font-size: 2rem;
+            font-weight: 800;
+            letter-spacing: 0.1em;
+            margin: 0;
+            display: block;
+        }
         .alias-name {
-            font-family: var(--font-sub); font-size: 1rem; letter-spacing: 0.4em;
-            color: var(--text-secondary); margin-top: 10px; display: block;
-            border-top: 1px solid var(--glass-border); padding-top: 10px; font-weight: 300;
+            font-family: var(--font-sub);
+            font-size: 1rem;
+            letter-spacing: 0.4em;
+            color: var(--text-secondary);
+            margin-top: 10px;
+            display: block;
+            border-top: 1px solid var(--glass-border);
+            padding-top: 10px;
+            font-weight: 300;
         }
 
-        .info-group { text-align: left; margin-bottom: 30px; width: 100%; }
+        /* 情報リスト */
+        .info-group {
+            text-align: left;
+            margin-bottom: 30px;
+        }
         .info-row {
-            display: flex; align-items: center; margin-bottom: 18px;
-            text-decoration: none; color: inherit; transition: transform 0.3s;
+            display: flex;
+            align-items: center;
+            margin-bottom: 18px;
+            text-decoration: none;
+            color: inherit;
+            transition: transform 0.2s;
         }
         .info-row:hover { transform: translateX(5px); }
+        
         .icon {
-            width: 35px; height: 35px; background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px; display: flex; justify-content: center; align-items: center;
-            margin-right: 15px; color: var(--accent);
+            width: 35px;
+            height: 35px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 15px;
+            font-size: 1rem;
+            color: var(--accent);
         }
-        .info-content .label { font-size: 0.6rem; text-transform: uppercase; color: var(--text-secondary); display: block; }
-        .info-content .value { font-size: 0.9rem; font-weight: 600; }
+        .info-content .label {
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-secondary);
+            display: block;
+        }
+        .info-content .value {
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
 
+        /* アクションボタン */
         .action-btn {
-            display: block; width: 100%; padding: 15px;
-            background: var(--text-primary); color: #000;
-            text-decoration: none; border-radius: 12px; font-weight: 800;
-            font-size: 0.8rem; text-align: center; transition: var(--transition-smooth);
-        }
-
-        /* 裏面のコンテンツデザイン */
-        .qr-placeholder {
-            width: 120px; height: 120px; background: #fff;
-            padding: 10px; border-radius: 12px; margin-bottom: 20px;
-        }
-        .bio-text {
-            font-size: 0.85rem; color: var(--text-secondary);
-            line-height: 1.6; margin-bottom: 20px; font-family: var(--font-sub);
-        }
-        .skill-tags {
-            display: flex; flex-wrap: wrap; gap: 8px; justify-content: center;
-        }
-        .tag {
-            background: rgba(255, 255, 255, 0.1); border: 1px solid var(--glass-border);
-            padding: 4px 12px; border-radius: 20px; font-size: 0.7rem; font-weight: 600;
-        }
-
-        /* 回転用ボタン */
-        .flip-hint {
-            margin-top: 20px; color: var(--text-secondary);
-            font-size: 0.7rem; letter-spacing: 0.2em;
-            background: none; border: 1px solid var(--glass-border);
-            padding: 8px 16px; border-radius: 30px; cursor: pointer;
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background: var(--text-primary);
+            color: #000;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 800;
+            font-size: 0.9rem;
+            letter-spacing: 0.1em;
             transition: all 0.3s;
+            margin-top: 10px;
         }
-        .flip-hint:hover { background: var(--glass-bg); color: var(--text-primary); }
+        .action-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
 
+        /* 装飾的な要素：シリアルナンバーのような表記 */
         .card-id {
-            position: absolute; bottom: 20px; right: 30px;
-            font-size: 0.5rem; letter-spacing: 0.2em; opacity: 0.4; font-family: monospace;
+            position: absolute;
+            bottom: 20px;
+            right: 30px;
+            font-size: 0.5rem;
+            letter-spacing: 0.2em;
+            opacity: 0.4;
+            font-family: monospace;
         }
-
-        /* 状態クラス */
-        .is-flipped { transform: rotateY(180deg); }
     </style>
 </head>
 <body>
@@ -188,124 +207,66 @@
     <div class="bg-glow"></div>
 
     <div class="tilt-container" id="container">
-        <div class="card-inner" id="card-inner">
-            <div class="card-front">
-                <div class="logo-wrap">
-                    <img src="https://sk0528jp.github.io/images/logo.png" alt="SK0528JP" class="logo">
-                </div>
-                <div class="name-container">
-                    <span class="main-name">SK0528JP</span>
-                    <span class="alias-name">瑞典 飛燕</span>
-                </div>
-                <div class="info-group">
-                    <a href="https://sk0528jp.github.io/" class="info-row">
-                        <div class="icon"><i class="fa-solid fa-link"></i></div>
-                        <div class="info-content">
-                            <span class="label">Official Hub</span>
-                            <span class="value">sk0528jp.github.io</span>
-                        </div>
-                    </a>
-                    <a href="mailto:sk0528jp@gmail.com" class="info-row">
-                        <div class="icon"><i class="fa-regular fa-envelope"></i></div>
-                        <div class="info-content">
-                            <span class="label">Direct Contact</span>
-                            <span class="value">sk0528jp@gmail.com</span>
-                        </div>
-                    </a>
-                </div>
-                <a href="https://sk0528jp.github.io/" class="action-btn">VISIT PORTFOLIO</a>
-                <div class="card-id">ID: SK0528JP-HIEN.M</div>
+        <div class="card" id="card">
+            <div class="logo-wrap">
+                <img src="https://sk0528jp.github.io/images/logo.png" alt="SK0528JP" class="logo">
             </div>
 
-            <div class="card-back">
-                <div class="qr-placeholder">
-                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://sk0528jp.github.io/" alt="QR" style="width:100%">
-                </div>
-                <div class="bio-text">
-                    Digital Developer / Creative Explorer<br>
-                    北欧のミニマリズムと日本の情緒を融合させた<br>
-                    デジタル体験を構築しています。
-                </div>
-                <div class="skill-tags">
-                    <span class="tag">HTML/CSS</span>
-                    <span class="tag">JavaScript</span>
-                    <span class="tag">UI Design</span>
-                    <span class="tag">Git</span>
-                </div>
-                <div class="card-id" style="bottom: 20px; left: 30px; right: auto;">EST. 2024</div>
+            <div class="name-container">
+                <span class="main-name">SK0528JP</span>
+                <span class="alias-name">瑞典 飛燕</span>
             </div>
+
+            <div class="info-group">
+                <a href="https://sk0528jp.github.io/" class="info-row">
+                    <div class="icon"><i class="fa-solid fa-link"></i></div>
+                    <div class="info-content">
+                        <span class="label">Official Hub</span>
+                        <span class="value">sk0528jp.github.io</span>
+                    </div>
+                </a>
+                <a href="mailto:sk0528jp@gmail.com" class="info-row">
+                    <div class="icon"><i class="fa-regular fa-envelope"></i></div>
+                    <div class="info-content">
+                        <span class="label">Direct Contact</span>
+                        <span class="value">sk0528jp@gmail.com</span>
+                    </div>
+                </a>
+            </div>
+
+            <a href="https://sk0528jp.github.io/" class="action-btn">VISIT PORTFOLIO</a>
+
+            <div class="card-id">ID: SK0528JP-HIEN.MIZUNORI</div>
         </div>
     </div>
 
-    <button class="flip-hint" id="flip-btn"><i class="fa-solid fa-rotate"></i> FLIP CARD</button>
-
     <script>
         const container = document.getElementById('container');
-        const cardInner = document.getElementById('card-inner');
-        const flipBtn = document.getElementById('flip-btn');
+        const card = document.getElementById('card');
 
-        let isFlipped = false;
-
-        // 3D Tilt Logic
-        const handleMove = (e) => {
-            if (isFlipped) return; // 裏面のときはチルトを無効化（必要なら解除可能）
-
+        // 3D Tilt Effect
+        container.addEventListener('mousemove', (e) => {
             const rect = container.getBoundingClientRect();
-            // タッチとマウス両方の座標取得
-            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-            const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-
-            const x = clientX - rect.left;
-            const y = clientY - rect.top;
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
             
             const centerX = rect.width / 2;
             const centerY = rect.height / 2;
             
-            // 傾きを計算（最大15度程度）
-            const rotateX = (y - centerY) / 12;
-            const rotateY = (centerX - x) / 12;
+            const rotateX = (y - centerY) / 10;
+            const rotateY = (centerX - x) / 10;
 
-            // 即座に反映（CSSのtransitionを一時的に短くする）
-            cardInner.style.transition = 'transform 0.1s ease-out';
-            cardInner.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-        };
+            card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        });
 
-        const resetTilt = () => {
-            if (isFlipped) {
-                cardInner.style.transform = 'rotateY(180deg)';
-            } else {
-                cardInner.style.transform = 'rotateX(0deg) rotateY(0deg)';
-            }
-            cardInner.style.transition = 'transform 0.8s cubic-bezier(0.23, 1, 0.32, 1)';
-        };
+        container.addEventListener('mouseleave', () => {
+            card.style.transform = 'rotateX(0deg) rotateY(0deg)';
+            card.style.transition = 'transform 0.5s ease';
+        });
 
-        // マウスイベント
-        container.addEventListener('mousemove', handleMove);
-        container.addEventListener('mouseleave', resetTilt);
-
-        // スマホ・タッチイベント
-        container.addEventListener('touchmove', (e) => {
-            handleMove(e);
-            // スクロールを防止して操作性を優先
-            if (e.cancelable) e.preventDefault();
-        }, { passive: false });
-        container.addEventListener('touchend', resetTilt);
-
-        // 回転機能
-        const toggleFlip = () => {
-            isFlipped = !isFlipped;
-            if (isFlipped) {
-                cardInner.classList.add('is-flipped');
-            } else {
-                cardInner.classList.remove('is-flipped');
-            }
-            resetTilt();
-        };
-
-        flipBtn.addEventListener('click', toggleFlip);
-        
-        // ダブルクリック/ダブルタップでも回転できるように
-        container.addEventListener('dblclick', toggleFlip);
+        container.addEventListener('mouseenter', () => {
+            card.style.transition = 'none';
+        });
     </script>
 </body>
 </html>
